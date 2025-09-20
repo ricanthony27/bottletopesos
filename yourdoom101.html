@@ -1,8 +1,7 @@
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
 <!doctype html>
 <html>
 <head>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <meta charset="utf-8">
   <title>Project Tutorial</title>
   <style>
@@ -72,19 +71,47 @@
 </head>
 <body>
   <header>
-    <h1>🔧 Bottle to Pesos RVM Tutorial</h1>
-    <p>Step-by-step guide with wiring, code, 3D model, and parts list</p>
+    <h1>Bottle to Pesos RVM</h1>
+    <p>Step-by-step guide with wiring, code, 3D model, and components list</p>
   </header>
 
   <section>
-    <h2>📌 Project description</h2>
-    <p>
-      Below is the wiring setup for your prototype.  
-      Make sure to double-check the connections to avoid short circuits or incorrect readings.  
-      Use jumper wires of proper length and secure them firmly on the breadboard and Arduino pins.
-    </p>
+    <h2>📖 Project description</h2>
+    <p> This prototype accepts valid plastic bottles in exchange for peso rewards; each valid bottle corresponds to one peso.
+        When a user inserts a valid bottle, the system verifies it and displays both the total number of valid bottles accepted 
+        and the system’s remaining balance. If an invalid bottle is inserted, the system will reject it and direct it to the open bin, 
+        allowing the user to retrieve it. If no balance remains and a bottle is accidentally inserted, the system will return it to the user. 
+    </p> 
+    <p> The administrator can access the web server by connecting to the ESP32’s Wi-Fi network (SSID: Baryabote, Password: Cristelkate).
+        The web server stores all data, including the number of valid and invalid bottles processed and the amount of rewards dispensed.
+        Through the web server, the administrator can also reset the system by replenishing it with 100 pesos in coins. 
+    </p> 
+    <p> 
+        <b>System Process:</b> 
+    </p> 
+    <p> When a person approaches the prototype, the system plays a tutorial through the built-in MP3 player and speaker. While idle, 
+        the 16x2 LCD displays “Barya Bote” on the first line and “Insert Valid Bottle” on the second line. Once Push Button 1 is pressed, 
+        the system begins accepting input. The LCD then shows “Peso Balance” on the first line (the remaining balance in the system) and 
+        “Bottle Count” on the second line (the number of valid bottles inserted). 
+    </p> 
+    <p> After inserting bottles, the user can press Push Button 2 to dispense pesos. Each press dispenses the reward amount, designed this 
+        way to avoid issues with the DIY peso dispenser. If the user has already dispensed their full reward and continues pressing Push Button 2,
+         the system will no longer dispense pesos. To prevent cheating, a sensor is installed above the bottle input slot. If this sensor is blocked,
+          the LCD will display “System Stop” on the first line and “Remove Obstacle” on the second line, halting operations until the obstruction is cleared. 
+        </p>
   </section>
 
+<section>
+  <h2>💾 First convert your SD card to FAT32</h2>
+  <p>Click below to watch the tutorial. After successfully formating you sd card to FAT32 upload your audio on the sd card and rename it "0001.mp3"</p>
+  
+  <a href="https://m.youtube.com/watch?v=t72n6vOlGSw" target="_blank"
+     style="display:inline-block; padding:10px 15px; background:#FF0000; 
+            color:white; border-radius:8px; text-decoration:none; 
+            font-weight:bold;">
+    ▶ Watch on YouTube
+  </a>
+</section>
 
   <section>
     <h2>📌 Wiring Diagram</h2>
@@ -92,33 +119,510 @@
     <img src="wiring.png" alt="Wiring Diagram">
   </section>
 
+   <section>
+    <h2>⚙️ Follow this 3d model guide</h2>
+    <p>place your sesors and servo motors as shown</p>
+    <img src="sensor.png" alt="sensor">
+  </section>
+
   <section>
-    <h2>💻 Arduino Code</h2>
-    <p>Copy and upload this code into your Arduino:</p>
-    <pre>
+  <h2>🎥 Project Demo Video</h2>
+  <video controls width="100%" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <source src="demo.mp4" type="video/mp4">
+  </video>
+</section>
+   
+
+
+
+
+<section>
+  <h2>💻 Upload this code first</h2>
+  <p>The servo will rotate 90 degrees idle position. </p>
+  <p>While in idle posotion scew your gate and sorter pad </p>
+
+  <!-- Code container -->
+  <div style="position: relative;">
+    <pre id="arduinoCode">
+  #include <Servo.h>
+  Servo servoGate,servoSorter;  
+  void setup() {
+  servoGate.attach(5);
+  servoSorter.attach(6);
+  delay(5000);
+  servoGate.write(90);
+  servoSorter.write(90);
+}
+void loop() {
+}
+
+    </pre>
+
+    <!-- Copy button -->
+    <button onclick="copyCode()" 
+      style="position: absolute; top: 10px; right: 10px;
+             padding: 6px 12px; border: none; border-radius: 6px;
+             background: #2b7a78; color: white; cursor: pointer;
+             font-size: 12px; font-weight: bold;">
+      Copy
+    </button>
+  </div>
+</section>
+
+<script>
+
+function copyCode() {
+  const code = document.getElementById("arduinoCode").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    alert("✅ Code copied to clipboard!");
+  });
+}
+</script>
+
+
+
+
+
+ <section>
+  <h2>💻 Then upload this</h2>
+  <p>Wait for 7 secs. The servo will imitate the system accepting and rejecting bottle. If no error like servo motor hiting something then proceed on uploading the full code else dm me. </p>
+<!-- Code container -->
+  <div style="position: relative;">
+    <pre id="arduinoCode">
+  #include <Servo.h>
+
+Servo servoGate,servoSorter;  
+void setup() {
+  servoGate.attach(5);
+  servoSorter.attach(6);
+  delay(7000);
+  
+  servoGate.write(90);
+  servoSorter.write(90);
+  delay(5000);
+  
+  servoGate.write(90);
+  servoSorter.write(10);
+  delay(3000);
+
+  servoGate.write(160);
+  servoSorter.write(10);
+  delay(3000);
+
+  servoGate.write(90);
+  servoSorter.write(90);
+  delay(5000);
+
+  servoGate.write(90);
+  servoSorter.write(160);
+  delay(3000);
+
+  servoGate.write(160);
+  servoSorter.write(160);
+  delay(3000);
+
+  servoGate.write(90);
+  servoSorter.write(90);
+}
+void loop() {
+
+}
+    </pre>
+
+    <!-- Copy button -->
+    <button onclick="copyCode()" 
+      style="position: absolute; top: 10px; right: 10px;
+             padding: 6px 12px; border: none; border-radius: 6px;
+             background: #2b7a78; color: white; cursor: pointer;
+             font-size: 12px; font-weight: bold;">
+      Copy
+    </button>
+  </div>
+</section>
+
+<script>
+
+function copyCode() {
+  const code = document.getElementById("arduinoCode").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    alert("✅ Code copied to clipboard!");
+  });
+}
+</script>
+
+
+  <section>
+  <h2>💻 Arduino Code</h2>
+  <p>Copy and upload this code into your Arduino:</p>
+
+  <!-- Code container -->
+  <div style="position: relative;">
+    <pre id="arduinoCode">
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+#include <SoftwareSerial.h>
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
+const int ir1 = 2;
+const int ir2 = 3;
+const int cap = 4;
+
+const int button1 = A1;
+const int button2 = A2;
+const int button3 = A3;
+const int pir = 7;
+const int speaker = 8;
+
+unsigned long speakerStart = 0;
+bool speakerOn = false;
+bool PIRwasTriggered = false;
+const unsigned long onDuration = 1000UL;
+const unsigned long offDuration = 10000UL;
+
+Servo servoGate, servoSorter, servoDispenser;
+
+unsigned long highStart = 0;
+bool obstacleMode = false;
+const unsigned long OBSTACLE_DELAY = 2000;
+unsigned long previousObstacles = 0;
+const long intervalObstacles = 500;
+
+bool lastButtonState = HIGH;
+bool systemState = true;
+unsigned long timerStart = 0;
+bool timing = false;
+
+int Validcount = 0;
+int Invalidcount = 0;
+int Pesocount = 100;
+
+SoftwareSerial espSerial(11, 10);
+const unsigned long SERIAL_POLL_INTERVAL = 10; 
+
 void setup() {
+  Serial.begin(9600);
+  espSerial.begin(9600);
+
+  servoGate.attach(5);
+  servoSorter.attach(6);
+  servoDispenser.attach(9);
+  servoGate.write(90); servoSorter.write(90); servoDispenser.write(40);
+
+  pinMode(pir, INPUT);
+  pinMode(speaker, OUTPUT);
+  digitalWrite(speaker, LOW);
+
+  pinMode(ir1, INPUT_PULLUP);
+  pinMode(ir2, INPUT_PULLUP);
+  pinMode(cap, INPUT_PULLUP);
+  pinMode(button1, INPUT_PULLUP);
+  pinMode(button2, INPUT_PULLUP);
+  pinMode(button3, INPUT_PULLUP);
+
   lcd.init();
   lcd.backlight();
-  lcd.print("Hello, Client!");
+  lcd.setCursor(0, 0);
+  lcd.print("   Barya bote   ");
+  lcd.setCursor(0, 1);
+  lcd.print("   LOADING...   ");
+  delay(3000);
+  espSerial.println("EVT;UNO_READY");
 }
+
 void loop() {
-  // Your logic here
+  speakerr();
+  obstacles();
+  buttonStart();
+  pollEspCommands();
 }
+
+void pollEspCommands() {
+  while (espSerial.available()) {
+    String cmd = espSerial.readStringUntil('\n'); 
+    cmd.trim();
+    if (cmd.length() == 0) continue;
+    cmd.toUpperCase(); 
+    Serial.print("ESP CMD: "); Serial.println(cmd);
+    processSerialCommand(cmd);
+  }
+}
+
+void processSerialCommand(const String &rcmd) {
+  String cmd = rcmd;
+  cmd.trim();
+  if (cmd.startsWith("DISPENSE")) {
+    int semi = cmd.indexOf(';');
+    int n = 1;
+    if (semi >= 0) {
+      n = cmd.substring(semi + 1).toInt();
+      if (n <= 0) n = 1;
+    }
+    for (int i = 0; i < n; ++i) {
+      if (Validcount >= 1) {
+        delay(300);
+      } else {
+        espSerial.println("NACK:DISPENSE_NO_VALID");
+        break;
+      }
+    }
+    espSerial.println("ACK:DISPENSE");
+  } else if (cmd == "VALID") {
+    valid();
+    espSerial.println("ACK:VALID");
+  } else if (cmd == "INVALID") {
+    invalid();
+    espSerial.println("ACK:INVALID");
+  } else if (cmd == "RESET") {
+    Resetsystem();
+    espSerial.println("ACK:RESET");
+  } else {
+    espSerial.print("UNKNOWN:");
+    espSerial.println(cmd);
+  }
+}
+
+void speakerr(){
+  unsigned long currentMillis = millis();
+  bool PIRtriggered = digitalRead(pir);
+  if (speakerOn && currentMillis - speakerStart >= onDuration) {
+    digitalWrite(speaker, LOW);
+    speakerOn = false;
+    speakerStart = currentMillis;
+  }
+  if (!speakerOn && (currentMillis - speakerStart >= offDuration) && PIRtriggered && !PIRwasTriggered) {
+    digitalWrite(speaker, HIGH);
+    speakerOn = true;
+    speakerStart = currentMillis;
+    Serial.println("Speaker ON for 1 second");
+  }
+  PIRwasTriggered = PIRtriggered;
+}
+
+void obstacles()
+{
+  int ir1State = digitalRead(ir1);
+  if (ir1State == LOW) {
+    if (!obstacleMode) {
+      if (highStart == 0) {
+        highStart = millis();
+      } else if (millis() - highStart >= OBSTACLE_DELAY) {
+
+        obstacleMode = true;
+        Serial.println("System stopped: IR1 HIGH for 3s");
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("System stopped  ");
+        lcd.setCursor(0, 1);
+        lcd.print("Remove obstacles");
+        delay(1500);
+        espSerial.println("EVT;OBSTACLE_STOP");
+      }
+    }
+  } else {
+    highStart = 0;
+    if (obstacleMode) {
+      obstacleMode = false;
+      Serial.println("System resumed: IR1 LOW");
+      espSerial.println("EVT;OBSTACLE_RESUME");
+    }
+  }
+}
+
+void buttonStart() {
+  int pbStart = digitalRead(button1);
+  int pbDispense = digitalRead(button2);
+  int pbReset = digitalRead(button3);
+  int ir1State = digitalRead(ir1);
+
+  if (pbStart == LOW && lastButtonState == HIGH) {
+    systemState = !systemState;
+  }
+
+  lastButtonState = pbStart;
+  if(systemState && ir1State == HIGH){
+    lcd.setCursor(0, 0);
+    lcd.print("   Barya bote    ");
+    lcd.setCursor(0, 1);
+    lcd.print("Put valid bottle");
+  }
+
+  if(!systemState && ir1State == HIGH){
+    lcd.setCursor(0, 0);
+    lcd.print("Peso balance:   ");
+    lcd.setCursor(14, 0);
+    lcd.print(Pesocount);
+    lcd.setCursor(0, 1);
+    lcd.print("Bottle Count:   ");
+    lcd.setCursor(14, 1);
+    lcd.print(Validcount);
+
+    int ir2State = digitalRead(ir2);
+    int capState = digitalRead(cap);
+
+    if (ir2State == LOW && !timing) {
+      timing = true;
+      timerStart = millis();
+    }
+
+    if (timing) {
+      if (millis() - timerStart >= 3000) {
+        lcd.setCursor(0, 0);
+        lcd.print("   Please Wait     ");
+        lcd.setCursor(0, 1);
+        lcd.print("    Verifying      ");
+        delay (1500);
+        if (capState == HIGH) { invalid(); }
+        else { valid(); }
+        timing = false;
+      }
+    }
+  }
+
+  if (pbDispense == LOW && Validcount >= 1){
+    dispensePeso();
+    delay(300);
+  }
+
+  if (pbReset == LOW){
+    Resetsystem();
+    delay(300); 
+  }
+}
+
+void valid(){
+  Validcount = Validcount + 1;
+  lcd.setCursor(0, 0);
+  lcd.print("  VALID INPUT  ");
+  lcd.setCursor(0, 1);
+  lcd.print("    THANKYOU    ");
+  servoGate.write(90); servoSorter.write(90);
+  delay(200);
+  servoGate.write(90); servoSorter.write(10);
+  delay(2000);
+  servoGate.write(160); servoSorter.write(10);
+  delay(3000);
+  servoGate.write(90); servoSorter.write(90);
+  delay(200);
+  Serial.print("Valid++ -> "); Serial.println(Validcount);
+  espSerial.print("EVT;VALID;");
+  espSerial.println(Validcount);
+}
+
+void invalid(){
+  Invalidcount = Invalidcount + 1;
+  lcd.setCursor(0, 0);
+  lcd.print(" INVALID INPUT ");
+  lcd.setCursor(0, 1);
+  lcd.print("PUT VALID BOTTLE");
+  servoGate.write(90); servoSorter.write(90);
+  delay(200);
+  servoGate.write(90); servoSorter.write(160);
+  delay(2000);
+  servoGate.write(160); servoSorter.write(160);
+  delay(3000);
+   servoGate.write(90); servoSorter.write(90);
+  delay(200);
+  Serial.print("Invalid++ -> "); Serial.println(Invalidcount);
+  espSerial.print("EVT;INVALID;");
+  espSerial.println(Invalidcount);
+}
+
+void dispensePeso(){
+  Validcount = max(0, Validcount - 1);
+  Pesocount = Pesocount - 1;
+  lcd.setCursor(0, 0);
+  lcd.print(" DISPENSING PESO ");
+  lcd.setCursor(0, 1);
+  lcd.print("    THANKYOU    ");
+  servoDispenser.write(40);
+  delay(200);
+  servoDispenser.write(160);
+  delay(3000);
+  servoDispenser.write(40);
+  delay(200);
+  Serial.println("Peso dispensed");
+  espSerial.print("EVT;DISPENSED;");
+  espSerial.print(Pesocount);
+  espSerial.print(",VALIDS=");
+  espSerial.println(Validcount);
+}
+
+void nodispensePeso(){
+  lcd.setCursor(0, 0);
+  lcd.print(" Pls input your ");
+  lcd.setCursor(0, 1);
+  lcd.print("  bottle first  ");
+  delay(3000);
+  espSerial.println("EVT;NODISPENSE");
+}
+
+void Resetsystem(){
+  Validcount = 0;
+  Invalidcount = 0;
+  Pesocount = 100;
+  lcd.setCursor(0, 0);
+  lcd.print("  PLEASE WAIT    ");
+  lcd.setCursor(0, 1);
+  lcd.print("   RESETTING    ");
+  delay(2000);
+  lcd.setCursor(0, 0);
+  lcd.print("      DONE        ");
+  Serial.println("System reset");
+  delay(2000);
+  espSerial.println("EVT;RESET");
+}
+
     </pre>
-  </section>
+
+    <!-- Copy button -->
+    <button onclick="copyCode()" 
+      style="position: absolute; top: 10px; right: 10px;
+             padding: 6px 12px; border: none; border-radius: 6px;
+             background: #2b7a78; color: white; cursor: pointer;
+             font-size: 12px; font-weight: bold;">
+      Copy
+    </button>
+  </div>
+</section>
+
+<script>
+
+function copyCode() {
+  const code = document.getElementById("arduinoCode").innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    alert("✅ Code copied to clipboard!");
+  });
+}
+</script>
+
+<section>
+  <h2>💻 ESP32 WROON N16R8 Code</h2>
+  <p>You can download the full ESP32 code here:</p>
+  
+  <a href="https://drive.google.com/file/d/1Mij-BxUcy6G6vC5kCTova32b-6g3J-PF/view?usp=drive_link" 
+     target="_blank" 
+     style="display:inline-block; padding:10px 15px; background:#2b7a78; color:white; border-radius:8px; text-decoration:none; font-weight:bold;">
+    📥 Download ESP32 Code
+  </a>
+</section>
+
+
 
   <section>
   <h2>📐 3D Model</h2>
   <p>You can rotate and zoom in on the 3D design below:</p>
-  <model-viewer src="model.glb" alt="3D Prototype"
-    auto-rotate camera-controls style="width:100%; height:480px;">
-  </model-viewer>
+  <model-viewer src="model1.glb" alt="3D Prototype"
+  auto-rotate camera-controls style="width:100%; height:480px;">
+</model-viewer>
 </section>
+
+<section>
+    <h2>🔴 Possible error</h2>
+    <p>Follow this wiring diagram carefully:</p>
+  </section>
+
 
   <section>
     <h2>🛒 Items Needed</h2>
@@ -131,4 +635,3 @@ void loop() {
   </section>
 </body>
 </html>
-
