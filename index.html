@@ -5,39 +5,84 @@
   <title>Protected Page</title>
   <style>
     body {
-      font-family: sans-serif;
-      display: flex; height: 100vh; justify-content: center; align-items: center;
-      background: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      /*background: linear-gradient(135deg, #460000, #000000);*/
+      background: linear-gradient(#000000);
+      margin: 0;
     }
     .box {
-      background: white; padding: 24px; border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       text-align: center;
+      width: 320px;
+      animation: fadeIn 0.6s ease;
     }
-    input { padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
-    button { margin-top: 10px; padding: 8px 12px; border: none; border-radius: 6px;
-      background: #2b7a78; color: white; font-weight: bold; cursor: pointer;
+    h2 {
+      margin-bottom: 16px;
+      color: #17252a;
+    }
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 80%;
+      margin-bottom: 12px;
+      transition: 0.3s;
+      outline: none;
+    }
+    input:focus {
+      border-color: #310101;
+      box-shadow: 0 0 6px rgba(20, 0, 0, 0.5);
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #505050;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #2c0303;
+      transform: scale(1.05);
+    }
+    #msg {
+      margin-top: 12px;
+      color: red;
+      font-size: 0.9em;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="box">
-    <h2>Enter Password</h2>
+    <h2>🔒 Enter Password</h2>
     <input type="password" id="pw" placeholder="Password"><br>
-    <button onclick="checkPassword()">Enter</button>
-    <p id="msg" style="color:red"></p>
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="msg"></p>
   </div>
 
   <script>
     function checkPassword() {
       const password = document.getElementById("pw").value;
-      // change "demo123" to your secret
       if(password === "demo123"){
-        window.location.href = "page.html"; // the real content page
+        window.location.href = "page.html"; // redirect to real content
       } else {
-        document.getElementById("msg").textContent = "Wrong password!";
+        document.getElementById("msg").textContent = "❌ Wrong password!";
       }
     }
   </script>
 </body>
 </html>
+
