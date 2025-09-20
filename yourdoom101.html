@@ -1,1 +1,134 @@
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Project Tutorial</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      color: #222;
+    }
+    header {
+      background: #2b7a78;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2b7a78;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    pre {
+      background: #1e1e1e;
+      color: #dcdcdc;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+    iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      background: #def2f1;
+      margin: 6px 0;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    ul li a {
+      color: #17252a;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔧 Bottle to Pesos RVM Tutorial</h1>
+    <p>Step-by-step guide with wiring, code, 3D model, and parts list</p>
+  </header>
+
+  <section>
+    <h2>📌 Project description</h2>
+    <p>
+      Below is the wiring setup for your prototype.  
+      Make sure to double-check the connections to avoid short circuits or incorrect readings.  
+      Use jumper wires of proper length and secure them firmly on the breadboard and Arduino pins.
+    </p>
+  </section>
+
+
+  <section>
+    <h2>📌 Wiring Diagram</h2>
+    <p>Follow this wiring diagram carefully:</p>
+    <img src="wiring.png" alt="Wiring Diagram">
+  </section>
+
+  <section>
+    <h2>💻 Arduino Code</h2>
+    <p>Copy and upload this code into your Arduino:</p>
+    <pre>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  lcd.print("Hello, Client!");
+}
+void loop() {
+  // Your logic here
+}
+    </pre>
+  </section>
+
+  <section>
+  <h2>📐 3D Model</h2>
+  <p>You can rotate and zoom in on the 3D design below:</p>
+  <model-viewer src="model.glb" alt="3D Prototype"
+    auto-rotate camera-controls style="width:100%; height:480px;">
+  </model-viewer>
+</section>
+
+  <section>
+    <h2>🛒 Items Needed</h2>
+    <ul>
+      <li><a href="https://www.amazon.com/arduino-uno" target="_blank">Arduino Uno</a></li>
+      <li><a href="https://www.amazon.com/jumper-wires" target="_blank">Jumper Wires</a></li>
+      <li><a href="https://www.amazon.com/lcd-16x2" target="_blank">16x2 LCD Display</a></li>
+      <li><a href="https://www.amazon.com/servo-motor" target="_blank">Servo Motor</a></li>
+    </ul>
+  </section>
+</body>
+</html>
 
