@@ -1,102 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Prototype Preview</title>
+  <meta charset="utf-8">
+  <title>Protected Page</title>
   <style>
-    /* Very small, self-contained styling */
-    :root{
-      --bg:#f7f9fb;
-      --card:#ffffff;
-      --accent:#2b7a78;
-      --muted:#6b7280;
-      --radius:12px;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    body {
+      font-family: sans-serif;
+      display: flex; height: 100vh; justify-content: center; align-items: center;
+      background: #f5f5f5;
     }
-    html,body{height:100%;margin:0;background:var(--bg);color:#111}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
-    .card{
-      width:100%;max-width:820px;background:var(--card);border-radius:var(--radius);
-      box-shadow:0 8px 30px rgba(15,23,42,0.08);padding:28px;
+    .box {
+      background: white; padding: 24px; border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      text-align: center;
     }
-    header{display:flex;align-items:center;gap:16px}
-    .logo{
-      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#1f9aa8);
-      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;
-    }
-    h1{margin:0;font-size:20px;}
-    p.lead{color:var(--muted);margin:8px 0 18px;}
-    .preview{
-      display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:start;
-    }
-    .box{
-      background:#fbfdff;border-radius:10px;padding:16px;border:1px solid rgba(16,24,40,0.03);
-    }
-    .screenshot{
-      height:220px;border-radius:8px;background:
-        linear-gradient(180deg,#eaf6f6,#dff0ef);
-      display:flex;align-items:center;justify-content:center;color:var(--muted);
-      font-weight:600;
-    }
-    .meta{display:flex;flex-direction:column;gap:10px}
-    .btn{
-      display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;
-      text-decoration:none;font-weight:600;
-    }
-    .muted-small{color:var(--muted);font-size:13px}
-    footer{margin-top:16px;text-align:right;color:var(--muted);font-size:13px}
-    @media (max-width:720px){
-      .preview{grid-template-columns:1fr;gap:12px}
-      .meta{align-items:flex-start}
-      footer{text-align:left}
+    input { padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+    button { margin-top: 10px; padding: 8px 12px; border: none; border-radius: 6px;
+      background: #2b7a78; color: white; font-weight: bold; cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" role="main">
-      <header>
-        <div class="logo">P</div>
-        <div>
-          <h1>Prototype — Project Name</h1>
-          <p class="lead">A quick preview page for client demos. Share the repo or the GitHub Pages link.</p>
-        </div>
-      </header>
-
-      <div class="preview" style="margin-top:18px">
-        <div class="box">
-          <div class="screenshot">Screenshot / Demo Area</div>
-          <p style="margin:12px 0 0" class="muted-small">
-            Brief description: What the prototype does, current limitations, and what you want feedback on.
-          </p>
-        </div>
-
-        <div class="meta">
-          <div class="box">
-            <strong>Access</strong>
-            <p class="muted-small" style="margin:6px 0 10px">
-              This repo can be made private and shared via collaborator invite, or published with GitHub Pages.
-            </p>
-            <a class="btn" href="#" onclick="alert('This is just a demo button. Replace with your real link.')">Open demo</a>
-          </div>
-
-          <div class="box">
-            <strong>Contact</strong>
-            <p class="muted-small" style="margin:6px 0 0">client@example.com</p>
-          </div>
-        </div>
-      </div>
-
-      <footer>
-        Last updated: <span id="date"></span>
-      </footer>
-    </div>
+  <div class="box">
+    <h2>Enter Password</h2>
+    <input type="password" id="pw" placeholder="Password"><br>
+    <button onclick="checkPassword()">Enter</button>
+    <p id="msg" style="color:red"></p>
   </div>
 
   <script>
-    // auto-fill today's date
-    document.getElementById('date').textContent = new Date().toLocaleDateString();
+    function checkPassword() {
+      const password = document.getElementById("pw").value;
+      // change "demo123" to your secret
+      if(password === "demo123"){
+        window.location.href = "page.html"; // the real content page
+      } else {
+        document.getElementById("msg").textContent = "Wrong password!";
+      }
+    }
   </script>
 </body>
 </html>
