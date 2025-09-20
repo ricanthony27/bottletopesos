@@ -100,6 +100,35 @@
           the LCD will display “System Stop” on the first line and “Remove Obstacle” on the second line, halting operations until the obstruction is cleared. 
         </p>
   </section>
+  
+   <section>
+    <h2>🛒 Items Needed</h2>
+    <p> ➤ Arduino uno</p>
+    <p> ➤ ESP32</p>
+    <p> ➤ 5v power supply (for Arduino uno and Servo motor)</p>
+    <p> ➤ 9v power supply (for capacitive sensor)</p>
+    <p> ➤ MG996R Metal gear servo motor</p>
+    <p> ➤ Capacitive sensor PNP type</p>
+    <p> ➤ E18 D80NK ir sensor</p>
+    <p> ➤ PIR Sensor</p>
+    <p> ➤ 16x2 i2c LCD</p>
+    <p> ➤ 1k, 2k, 1m ohms resistor</p>
+    <p> ➤ MFP mini mp3 player</p>
+    <p> ➤ Micro SD Card 4 to 32gb only</p>
+    <p> ➤ 4ohm 3watts speaker</p>
+    <p> ➤ 5v relay</p>
+    <p> ➤ LY2NJ 220v relay</p>
+    <p> ➤ SHREDDER</p>
+    <p> ➤ MCB</p>
+
+    <ul>
+      <li><a href="https://vt.tiktok.com/ZSHn74dYPedet-Bw0Ed/" target="_blank">Arduino Uno this shop is almost complete</a></li>
+      <li><a href="https://vt.tiktok.com/ZSHn74u9RxD5y-AjS25/" target="_blank">ESP32 WROOM S3 N16R8</a></li>
+      <li><a href="https://vt.tiktok.com/ZSHn7bo72UMgP-KGONy/" target="_blank">LY2NJ 220v relay</a></li>
+      <li><a href="https://vt.tiktok.com/ZSHn74Aa7jAWG-wdzAn/" target="_blank">Power supply</a></li>
+      <li><a href="https://vt.tiktok.com/ZSHn7g56wNuVh-b8wCC/" target="_blank">MCB</a></li>
+    </ul>
+  </section>
 
 <section>
   <h2>💾 First convert your SD card to FAT32</h2>
@@ -114,32 +143,34 @@
 </section>
 
   <section>
-    <h2>📌 Wiring Diagram</h2>
+    <h2>📌 Wiring Diagram (Arduino uno, ESP32, Sensors and Actuators)</h2>
     <p>Follow this wiring diagram carefully:</p>
     <img src="wiring.png" alt="Wiring Diagram">
+    <h2>📌 Shredder wiring Diagram</h2>
+    <p>PLEASE follow this wiring diagram carefully. Same Arduino just add this:</p>
+    <img src="shredder.png" alt="Wiring Diagram">
   </section>
 
    <section>
     <h2>⚙️ Follow this 3d model guide</h2>
     <p>place your sesors and servo motors as shown</p>
     <img src="sensor.png" alt="sensor">
+    <p>place your servo motors like this</p>
+    <img src="sensor2.png" alt="sensor">
   </section>
 
   <section>
   <h2>🎥 Project Demo Video</h2>
+  <p>This is just my most basic idea of sorting mechanisim, you can use another method.</p>
   <video controls width="100%" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
     <source src="demo.mp4" type="video/mp4">
   </video>
 </section>
-   
-
-
-
 
 <section>
   <h2>💻 Upload this code first</h2>
-  <p>The servo will rotate 90 degrees idle position. </p>
-  <p>While in idle posotion scew your gate and sorter pad </p>
+  <p>The servo will turn 90 degrees idle position. </p>
+  <p>While in idle posotion scew your gate and sorter pad. Pads are those plain pad your servo motor is holding. </p>
 
   <!-- Code container -->
   <div style="position: relative;">
@@ -185,7 +216,7 @@ function copyCode() {
 
  <section>
   <h2>💻 Then upload this</h2>
-  <p>Wait for 7 secs. The servo will imitate the system accepting and rejecting bottle. If no error like servo motor hiting something then proceed on uploading the full code else dm me. </p>
+  <p>Wait for 7 secs. The servo will imitate the system accepting and rejecting bottle. If no error like servo motor hiting something then proceed on uploading the full code below else dm me. </p>
 <!-- Code container -->
   <div style="position: relative;">
     <pre id="arduinoCode">
@@ -252,7 +283,7 @@ function copyCode() {
 
 
   <section>
-  <h2>💻 Arduino Code</h2>
+  <h2>💻 Arduino Full Code</h2>
   <p>Copy and upload this code into your Arduino:</p>
 
   <!-- Code container -->
@@ -268,6 +299,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 const int ir1 = 2;
 const int ir2 = 3;
 const int cap = 4;
+const int relay = 12;
 
 const int button1 = A1;
 const int button2 = A2;
@@ -312,7 +344,9 @@ void setup() {
 
   pinMode(pir, INPUT);
   pinMode(speaker, OUTPUT);
+  pinMode(relay, OUTPUT);
   digitalWrite(speaker, LOW);
+  digitalWrite(relay, LOW);
 
   pinMode(ir1, INPUT_PULLUP);
   pinMode(ir2, INPUT_PULLUP);
@@ -502,8 +536,10 @@ void valid(){
   servoGate.write(90); servoSorter.write(10);
   delay(2000);
   servoGate.write(160); servoSorter.write(10);
+  digitalWrite(relay, HIGH);
   delay(3000);
   servoGate.write(90); servoSorter.write(90);
+  digitalWrite(relay, LOW);
   delay(200);
   Serial.print("Valid++ -> "); Serial.println(Validcount);
   espSerial.print("EVT;VALID;");
@@ -573,7 +609,6 @@ void Resetsystem(){
   delay(2000);
   espSerial.println("EVT;RESET");
 }
-
     </pre>
 
     <!-- Copy button -->
@@ -618,20 +653,14 @@ function copyCode() {
 </model-viewer>
 </section>
 
-<section>
-    <h2>🔴 Possible error</h2>
-    <p>Follow this wiring diagram carefully:</p>
-  </section>
-
 
   <section>
-    <h2>🛒 Items Needed</h2>
-    <ul>
-      <li><a href="https://www.amazon.com/arduino-uno" target="_blank">Arduino Uno</a></li>
-      <li><a href="https://www.amazon.com/jumper-wires" target="_blank">Jumper Wires</a></li>
-      <li><a href="https://www.amazon.com/lcd-16x2" target="_blank">16x2 LCD Display</a></li>
-      <li><a href="https://www.amazon.com/servo-motor" target="_blank">Servo Motor</a></li>
-    </ul>
+    <h2>🔴 Possible error</h2>
+    <p>Sudden brown out: make sure you power the servo direclty on 5v power supply not on arduino 5v</p>
+    <p>LCD display flickering: make sure your jumper wire are connected tightly, solder them as needed</p>
+    <p>IR sensor remain active: adjust the sensitivity knob (pot) counterclockwise to weaken the IR signal or use black pvc pipe or paint the inside black</p>
+    <p>Capacitive sensor active instantly: adjust the sensitivity knob (pot) counterclockwise to weaken the signal.</p>
+    <p>System won't verify invalid input: adjust the sensitivity knob (pot) clockwise to strengthen the signal if it lights then it is good if not then check the wirings or navigate the pot carefully until it sense your hand"</p>
   </section>
 </body>
 </html>
