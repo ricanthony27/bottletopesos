@@ -171,11 +171,12 @@
   <h2>💻 Upload this code first</h2>
   <p>The servo will turn 90 degrees idle position. </p>
   <p>While in idle posotion scew your gate and sorter pad. Pads are those plain pad your servo motor is holding. </p>
+   <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
 
   <!-- Code container -->
   <div style="position: relative;">
     <pre id="arduinoCode">
-  #include <Servo.h>
+  #include Servo.h>
   Servo servoGate,servoSorter;  
   void setup() {
   servoGate.attach(5);
@@ -217,10 +218,10 @@ function copyCode() {
  <section>
   <h2>💻 Then upload this</h2>
   <p>Wait for 7 secs. The servo will imitate the system accepting and rejecting bottle. If no error like servo motor hiting something then proceed on uploading the full code below else dm me. </p>
-<!-- Code container -->
+   <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
   <div style="position: relative;">
     <pre id="arduinoCode">
-  #include <Servo.h>
+  #include Servo.h>
 
 Servo servoGate,servoSorter;  
 void setup() {
@@ -285,14 +286,15 @@ function copyCode() {
   <section>
   <h2>💻 Arduino Full Code</h2>
   <p>Copy and upload this code into your Arduino:</p>
+  <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
 
   <!-- Code container -->
   <div style="position: relative;">
     <pre id="arduinoCode">
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <Servo.h>
-#include <SoftwareSerial.h>
+#include Wire.h>
+#include LiquidCrystal_I2C.h>
+#include Servo.h>
+#include SoftwareSerial.h>
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
