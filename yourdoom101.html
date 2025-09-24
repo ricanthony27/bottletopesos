@@ -78,7 +78,7 @@
   <section>
     <h2>📖 Project description</h2>
     <p> This prototype accepts valid plastic bottles in exchange for peso rewards; each valid bottle corresponds to one peso.
-        When a user inserts a valid bottle, the system verifies and automatically shred using the shredder and displays both the total number of valid bottles accepted 
+        When a user inserts a valid bottle, the system verifies it and displays both the total number of valid bottles accepted 
         and the system’s remaining balance. If an invalid bottle is inserted, the system will reject it and direct it to the open bin, 
         allowing the user to retrieve it. If no balance remains and a bottle is accidentally inserted, the system will return it to the user. 
     </p> 
@@ -89,7 +89,7 @@
     <p> 
         <b>System Process:</b> 
     </p> 
-    <p> When a person approaches the prototype, the system automatically plays a tutorial through the built-in MP3 player and speaker. While idle, 
+    <p> When a person approaches the prototype, the system plays a tutorial through the built-in MP3 player and speaker. While idle, 
         the 16x2 LCD displays “Barya Bote” on the first line and “Insert Valid Bottle” on the second line. Once Push Button 1 is pressed, 
         the system begins accepting input. The LCD then shows “Peso Balance” on the first line (the remaining balance in the system) and 
         “Bottle Count” on the second line (the number of valid bottles inserted). 
@@ -156,7 +156,11 @@
     <p>place your sesors and servo motors as shown</p>
     <img src="sensor.png" alt="sensor">
     <p>place your servo motors like this</p>
-    <img src="sensor2.png" alt="sensor">
+    <img src="servo1.png" alt="sensor">
+    <p>The metal rod connected to servo pad should be fix while on the invalid pad should move freely.</p>
+    <img src="servo3.png" alt="sensor">
+    <p>Your sensor must have enough space so it won't touch the any input bottles</p>
+    <img src="servo4.png" alt="sensor">
   </section>
 
   <section>
@@ -171,7 +175,7 @@
   <h2>💻 Upload this code first</h2>
   <p>The servo will turn 90 degrees idle position. </p>
   <p>While in idle posotion scew your gate and sorter pad. Pads are those plain pad your servo motor is holding. </p>
-   <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
+  <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete libraries. Just put "<" before the libraries name and its all good.</p>
 
   <!-- Code container -->
   <div style="position: relative;">
@@ -218,7 +222,9 @@ function copyCode() {
  <section>
   <h2>💻 Then upload this</h2>
   <p>Wait for 7 secs. The servo will imitate the system accepting and rejecting bottle. If no error like servo motor hiting something then proceed on uploading the full code below else dm me. </p>
-   <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
+  <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete libraries. Just put "<" before the libraries name and its all good.</p>
+
+   <!-- Code container -->
   <div style="position: relative;">
     <pre id="arduinoCode">
   #include Servo.h>
@@ -286,15 +292,15 @@ function copyCode() {
   <section>
   <h2>💻 Arduino Full Code</h2>
   <p>Copy and upload this code into your Arduino:</p>
-  <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete the libraries. Just put "<" and its all good. </p>
+  <p>In #include "<" I remove this part on all libraries since the libraries disapear as i put complete libraries. Just put "<" before the libraries name and its all good.</p>
 
   <!-- Code container -->
   <div style="position: relative;">
     <pre id="arduinoCode">
-#include Wire.h>
-#include LiquidCrystal_I2C.h>
-#include Servo.h>
-#include SoftwareSerial.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+#include <SoftwareSerial.h>
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
